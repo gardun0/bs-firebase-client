@@ -6,6 +6,9 @@
   "author": "Jorge Garduño <damnyorch@gmail.com>",
   "license": "GPL-3.0",
   "private": false,
+  "scripts": {
+    "postinstall": "bsb -make-world"
+  },
   "devDependencies": {
     "bs-platform": "^5.0.0"
   },
