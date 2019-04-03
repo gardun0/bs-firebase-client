@@ -7,13 +7,15 @@
   "license": "GPL-3.0",
   "private": false,
   "scripts": {
-    "postinstall": "bsb -make-world"
+    "preinstall": "bsb -clean-world -make-world",
+    "postinstall": "bsb -clean-world -make-world"
   },
   "devDependencies": {
     "bs-platform": "^5.0.0"
   },
   "peerDependencies": {
-    "firebase": "^5.9.2"
+    "firebase": "^5.9.2",
+    "bs-platform": "^5.0.0"
   },
   "dependencies": {
     "firebase": "^5.9.2"
