@@ -1,0 +1,21 @@
+{
+  "name": "bs-firebase-client",
+  "version": "0.1.0",
+  "generate-merlin": true,
+  "bsc-flags": [
+    "-bs-no-version-header",
+    "-bs-super-errors"
+  ],
+  "sources": {
+    "dir": "src",
+    "subdirs" : true
+  },
+  "package-specs": {
+    "module": "commonjs",
+    "in-source": false
+  },
+  "suffix": ".bs.js",
+  "bs-dependencies": [
+   ],
+  "refmt": 3
+}

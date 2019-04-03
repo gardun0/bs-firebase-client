@@ -1,0 +1,19 @@
+{
+  "name": "bs-firebase-client",
+  "version": "1.0.0",
+  "description": "Binding of firebase (client) for Reason-Bucklescript",
+  "main": "index.js",
+  "repository": "https://github.com/notapineapple/bs-firebase-client",
+  "author": "Jorge Garduño <damnyorch@gmail.com>",
+  "license": "GPL-3.0",
+  "private": false,
+  "devDependencies": {
+    "bs-platform": "^5.0.0"
+  },
+  "peerDependencies": {
+    "firebase": "^5.9.2"
+  },
+  "dependencies": {
+    "firebase": "^5.9.2"
+  }
+}
