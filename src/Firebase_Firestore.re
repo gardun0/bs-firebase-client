@@ -251,17 +251,17 @@ module Collection = {
   [@bs.send] external onSnapshotWithOptions : (CollectionReference.t, snapshotListenSettings, observer('a)) => cancel = "onSnapshot";
 
   [@bs.send] external onSnapshotWithCallbacks : (CollectionReference.t,
-    ~onNext: QuerySnapshot.t => _,
-    ~onError: Js.t('a) => _ = ?,
-    ~onCompletion: unit => _ = ?,
+    ~onNext: QuerySnapshot.t => unit,
+    ~onError: Js.t('a) => unit = ?,
+    ~onCompletion: unit => unit = ?,
     unit
   ) => cancel = "onSnapshot";
 
   [@bs.send] external onSnapshotWithCallbacksAndOptions : (CollectionReference.t,
     ~options:snapshotListenSettings,
-    ~onNext: QuerySnapshot.t => _,
-    ~onError: Js.t('a) => _ = ?,
-    ~onCompletion: unit => _ = ?,
+    ~onNext: QuerySnapshot.t => unit,
+    ~onError: Js.t('a) => unit = ?,
+    ~onCompletion: unit => unit = ?,
     unit
   ) => cancel = "onSnapshot";
 
