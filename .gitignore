@@ -24,4 +24,5 @@ setup.log
 
 node_modules/
 lib/bs
+lib/js
 .idea/
