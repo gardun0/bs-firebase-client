@@ -1,9 +1,23 @@
+[@bs.module "firebase/database"] external enableLogging : (
+  ~logger: 'a = ?,
+  ~persistent: bool = ?,
+  unit
+) => 'a = "";
+
 module ServerValue = {
   [@bs.module "firebase/database"]
   [@bs.scope "database"]
   [@bs.scope "ServerValue"]
   [@bs.val]
   external timestamp : string = "TIMESTAMP";
+};
+
+module Database = {
+  type t;
+};
+
+module ReferenceRef = {
+  type t;
 };
 
 module OnDisconnect = {
@@ -57,6 +71,8 @@ module DataSnapshot = {
 
 module Query = {
   type t;
+
+  [@bs.get] external ref : t => ReferenceRef.t = "";
 
   [@bs.send] external endAt : (t, ~value: 'a, ~key: 'b = ?, unit) => t = "";
   [@bs.send] external equalTo : (t, ~value: 'a, ~key: 'b = ?, unit) => t = "";
@@ -119,21 +135,19 @@ module Query = {
 };
 
 module Reference = {
-  type t;
+  [@bs.get] external key : ReferenceRef.t => string = "";
+  [@bs.get] external parent : ReferenceRef.t => Js.Nullable.t(ReferenceRef.t) = "";
+  [@bs.get] external ref : ReferenceRef.t => ReferenceRef.t = "";
+  [@bs.get] external root : ReferenceRef.t => string = "";
 
-  [@bs.get] external key : t => string = "";
-  [@bs.get] external parent : t => string = "";
-  [@bs.get] external ref : t => t = "";
-  [@bs.get] external root : t => string = "";
+  [@bs.send] external child : (ReferenceRef.t, string) => ReferenceRef.t = "";
+  [@bs.send] external endAt : (ReferenceRef.t, ~value: 'a, ~key: 'b = ?, unit) => Query.t = "";
+  [@bs.send] external equalTo : (ReferenceRef.t, ~value: 'a, ~key: 'b = ?, unit) => Query.t = "";
+  [@bs.send] external isEqual : (ReferenceRef.t, Query.t) => bool = "";
+  [@bs.send] external limitToFirst : (ReferenceRef.t, int) => Query.t = "";
+  [@bs.send] external limitToLast : (ReferenceRef.t, int) => Query.t = "";
 
-  [@bs.send] external child : (t, string) => t = "";
-  [@bs.send] external endAt : (t, ~value: 'a, ~key: 'b = ?, unit) => Query.t = "";
-  [@bs.send] external equalTo : (t, ~value: 'a, ~key: 'b = ?, unit) => Query.t = "";
-  [@bs.send] external isEqual : (t, Query.t) => bool = "";
-  [@bs.send] external limitToFirst : (t, int) => Query.t = "";
-  [@bs.send] external limitToLast : (t, int) => Query.t = "";
-
-  [@bs.send] external off : (t,
+  [@bs.send] external off : (ReferenceRef.t,
     ~event : [@bs.string] [
       | [@bs.as "value"] `Value
       | [@bs.as "child_added"] `ChildAdded
@@ -146,7 +160,7 @@ module Reference = {
     unit
   ) => _ = "";
 
-  [@bs.send] external on : (t,
+  [@bs.send] external on : (ReferenceRef.t,
     ~event : [@bs.string] [
       | [@bs.as "value"] `Value
       | [@bs.as "child_added"] `ChildAdded
@@ -159,9 +173,9 @@ module Reference = {
     ~context : Js.t('a) = ?
   ) => (DataSnapshot.t => _) = "";
 
-  [@bs.send] external onDisconnect : unit => OnDisconnect.t = "";
+  [@bs.send] external onDisconnect : ReferenceRef.t => OnDisconnect.t = "";
 
-  [@bs.send] external once : (t,
+  [@bs.send] external once : (ReferenceRef.t,
     ~event : [@bs.string] [
       | [@bs.as "value"] `Value
       | [@bs.as "child_added"] `ChildAdded
@@ -174,54 +188,54 @@ module Reference = {
     ~context : Js.t('a) = ?
   ) => (DataSnapshot.t => _) = "";
 
-  [@bs.send] external orderByChild : (t, string) => Query.t = "";
+  [@bs.send] external orderByChild : (ReferenceRef.t, string) => Query.t = "";
 
-  [@bs.send] external orderByKey : t => Query.t = "";
+  [@bs.send] external orderByKey : ReferenceRef.t => Query.t = "";
 
-  [@bs.send] external orderByPriority : t => Query.t = "";
+  [@bs.send] external orderByPriority : ReferenceRef.t => Query.t = "";
 
-  [@bs.send] external orderByValue : t => Query.t = "";
+  [@bs.send] external orderByValue : ReferenceRef.t => Query.t = "";
 
-  [@bs.send] external push : (t,
+  [@bs.send] external push : (ReferenceRef.t,
     ~value : 'a = ?,
     ~onComplete : (Js.Nullable.t(Js.t('a)) => _) = ?,
     unit
-  ) => Js.Promise.t(t) = "";
+  ) => Js.Promise.t(ReferenceRef.t) = "";
 
-  [@bs.send] external remove : (t,
+  [@bs.send] external remove : (ReferenceRef.t,
     ~onComplete : (Js.Nullable.t(Js.t('a)) => _) = ?,
     unit
   ) => Js.Promise.t('a) = "";
 
-  [@bs.send] external set : (t,
+  [@bs.send] external set : (ReferenceRef.t,
     ~value : 'a = ?,
     ~onComplete : (Js.Nullable.t(Js.t('a)) => _) = ?,
     unit
   ) => Js.Promise.t('a) = "";
 
-  [@bs.send] external setPriority : ('a, Js.Nullable.t(Js.t('a)) => _) => Js.Promise.t('a) = "";
+  [@bs.send] external setPriority : (ReferenceRef.t, 'a, Js.Nullable.t(Js.t('a)) => _) => Js.Promise.t('a) = "";
 
-  [@bs.send] external setWithPriority : (t,
+  [@bs.send] external setWithPriority : (ReferenceRef.t,
     ~value : 'a,
     ~priority : 'b,
     ~onComplete : (Js.Nullable.t(Js.t('a)) => _) = ?,
     unit
   ) => Js.Promise.t('a) = "";
 
-  [@bs.send] external startAt : (t, ~value: 'a, ~key: 'b = ?, unit) => Query.t = "";
+  [@bs.send] external startAt : (ReferenceRef.t, ~value: 'a, ~key: 'b = ?, unit) => Query.t = "";
 
-  [@bs.send] external toJSON : t => Js.Json.t = "";
+  [@bs.send] external toJSON : ReferenceRef.t => Js.Json.t = "";
 
-  [@bs.send] external toString : t => string = "";
+  [@bs.send] external toString : ReferenceRef.t => string = "";
 
-  [@bs.send] external transaction : (t,
+  [@bs.send] external transaction : (ReferenceRef.t,
     ~update : 'a => unit,
     ~onComplete : ((Js.Nullable.t(Js.t('a)), bool, Js.Nullable.t(DataSnapshot.t)) => _) = ?,
     ~applyLocally : bool,
     unit
   ) => Js.Promise.t('a) = "";
 
-  [@bs.send] external update : (t,
+  [@bs.send] external update : (ReferenceRef.t,
     ~value : 'a => unit,
     ~onComplete : (Js.Nullable.t(Js.t('a)) => _) = ?,
     unit
@@ -229,16 +243,14 @@ module Reference = {
 };
 
 module Make = (App: Firebase_App.App) => {
-  type t;
-
-  [@bs.send] external database : App.t => t = "database";
+  [@bs.send] external database : App.t => Database.t = "database";
   let instance = database(App.instance);
 
-  [@bs.get] external app : t => _ = "";
+  [@bs.get] external app : Database.t => App.t = "";
 
-  [@bs.send] external goOffline : t => _ = "";
-  [@bs.send] external goOnline : t => _ = "";
+  [@bs.send] external goOffline : Database.t => _ = "";
+  [@bs.send] external goOnline : Database.t => _ = "";
 
-  [@bs.send] external ref : (t, string) => Reference.t = ""
-  [@bs.send] external refUrl : (t, string) => Reference.t = "refFromUrl"
+  [@bs.send] external ref : (Database.t, string) => ReferenceRef.t = ""
+  [@bs.send] external refUrl : (Database.t, string) => ReferenceRef.t = "refFromUrl"
 };
