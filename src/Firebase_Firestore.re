@@ -106,17 +106,17 @@ module Document = {
   [@bs.send] external onSnapshotWithOptions : (DocumentReference.t, snapshotListenSettings, observer('a)) => cancel = "onSnapshot";
 
   [@bs.send] external onSnapshotWithCallbacks : (DocumentReference.t,
-    ~onNext: DocumentSnapshot.t => _,
-    ~onError: Js.t('a) => _ = ?,
-    ~onCompletion: unit => _ = ?,
+    ~onNext: DocumentSnapshot.t => unit,
+    ~onError: Js.t('a) => unit = ?,
+    ~onCompletion: unit => unit = ?,
     unit
   ) => cancel = "onSnapshot";
 
   [@bs.send] external onSnapshotWithCallbacksAndOptions : (DocumentReference.t,
     ~options:snapshotListenSettings,
-    ~onNext: DocumentSnapshot.t => _,
-    ~onError: Js.t('a) => _ = ?,
-    ~onCompletion: unit => _ = ?,
+    ~onNext: DocumentSnapshot.t => unit,
+    ~onError: Js.t('a) => unit = ?,
+    ~onCompletion: unit => unit = ?,
     unit
   ) => cancel = "onSnapshot";
 
@@ -159,17 +159,17 @@ module Query = {
   [@bs.send] external onSnapshotWithOptions : (t, snapshotListenSettings, observer('a)) => cancel = "onSnapshot";
 
   [@bs.send] external onSnapshotWithCallbacks : (t,
-    ~onNext: QuerySnapshot.t => _,
-    ~onError: Js.t('a) => _ = ?,
-    ~onCompletion: unit => _ = ?,
+    ~onNext: QuerySnapshot.t => unit,
+    ~onError: Js.t('a) => unit = ?,
+    ~onCompletion: unit => unit = ?,
     unit
   ) => cancel = "onSnapshot";
 
   [@bs.send] external onSnapshotWithCallbacksAndOptions : (t,
     ~options:snapshotListenSettings,
-    ~onNext: QuerySnapshot.t => _,
-    ~onError: Js.t('a) => _ = ?,
-    ~onCompletion: unit => _ = ?,
+    ~onNext: QuerySnapshot.t => unit,
+    ~onError: Js.t('a) => unit = ?,
+    ~onCompletion: unit => unit = ?,
     unit
   ) => cancel = "onSnapshot";
 

@@ -23,22 +23,22 @@ module ReferenceRef = {
 module OnDisconnect = {
   type t;
 
-  [@bs.send] external cancel : (t, ~onComplete: (Js.Nullable.t(Js.t('a)) => _) = ?) => Js.Promise.t('a) = "";
+  [@bs.send] external cancel : (t, ~onComplete: (Js.Nullable.t(Js.t('a)) => unit) = ?) => Js.Promise.t('a) = "";
 
-  [@bs.send] external remove : (t, ~onComplete: (Js.Nullable.t(Js.t('a)) => _) = ?) => Js.Promise.t('a) = "";
+  [@bs.send] external remove : (t, ~onComplete: (Js.Nullable.t(Js.t('a)) => unit) = ?) => Js.Promise.t('a) = "";
 
-  [@bs.send] external set : (t, 'a, ~onComplete: (Js.Nullable.t(Js.t('a)) => _) = ?) => Js.Promise.t('a) = "";
+  [@bs.send] external set : (t, 'a, ~onComplete: (Js.Nullable.t(Js.t('a)) => unit) = ?) => Js.Promise.t('a) = "";
 
   [@bs.send] external setWithPriority : (t,
     ~value : 'a,
     ~priority : 'b,
-    ~onComplete : (Js.Nullable.t(Js.t('a)) => _) = ?,
+    ~onComplete : (Js.Nullable.t(Js.t('a)) => unit) = ?,
     unit
   ) => Js.Promise.t('a) = "";
 
   [@bs.send] external update : (t,
     ~value : 'a => unit,
-    ~onComplete : (Js.Nullable.t(Js.t('a)) => _) = ?,
+    ~onComplete : (Js.Nullable.t(Js.t('a)) => unit) = ?,
     unit
   ) => Js.Promise.t('a) = "";
 }
@@ -88,7 +88,7 @@ module Query = {
       | [@bs.as "child_moved"] `ChildMoved
       | [@bs.as "child_removed"] `ChildRemoved
     ] = ?,
-    ~callback : (DataSnapshot.t => _) = ?,
+    ~callback : (DataSnapshot.t => unit) = ?,
     ~context : Js.t('a) = ?,
     unit
   ) => _ = "";
@@ -101,7 +101,7 @@ module Query = {
       | [@bs.as "child_moved"] `ChildMoved
       | [@bs.as "child_removed"] `ChildRemoved
     ],
-    ~callback : (DataSnapshot.t, Js.Nullable.t(string)) => _,
+    ~callback : (DataSnapshot.t, Js.Nullable.t(string)) => unit,
     ~cancelCallbackOrContext : Js.t('a) = ?,
     ~context : Js.t('a) = ?
   ) => (DataSnapshot.t => _) = "";
@@ -114,7 +114,7 @@ module Query = {
       | [@bs.as "child_moved"] `ChildMoved
       | [@bs.as "child_removed"] `ChildRemoved
     ],
-    ~successCallback : (DataSnapshot.t, Js.Nullable.t(string)) => _,
+    ~successCallback : (DataSnapshot.t, Js.Nullable.t(string)) => unit,
     ~failureCallbackOrContext : Js.t('a) = ?,
     ~context : Js.t('a) = ?
   ) => (DataSnapshot.t => _) = "";
@@ -155,7 +155,7 @@ module Reference = {
       | [@bs.as "child_moved"] `ChildMoved
       | [@bs.as "child_removed"] `ChildRemoved
     ] = ?,
-    ~callback : (DataSnapshot.t => _) = ?,
+    ~callback : (DataSnapshot.t => unit) = ?,
     ~context : Js.t('a) = ?,
     unit
   ) => _ = "";
@@ -168,7 +168,7 @@ module Reference = {
       | [@bs.as "child_moved"] `ChildMoved
       | [@bs.as "child_removed"] `ChildRemoved
     ],
-    ~callback : (DataSnapshot.t, Js.Nullable.t(string)) => _,
+    ~callback : (DataSnapshot.t, Js.Nullable.t(string)) => unit,
     ~cancelCallbackOrContext : Js.t('a) = ?,
     ~context : Js.t('a) = ?
   ) => (DataSnapshot.t => _) = "";
@@ -183,7 +183,7 @@ module Reference = {
       | [@bs.as "child_moved"] `ChildMoved
       | [@bs.as "child_removed"] `ChildRemoved
     ],
-    ~successCallback : (DataSnapshot.t, Js.Nullable.t(string)) => _,
+    ~successCallback : (DataSnapshot.t, Js.Nullable.t(string)) => unit,
     ~failureCallbackOrContext : Js.t('a) = ?,
     ~context : Js.t('a) = ?
   ) => (DataSnapshot.t => _) = "";
@@ -198,27 +198,27 @@ module Reference = {
 
   [@bs.send] external push : (ReferenceRef.t,
     ~value : 'a = ?,
-    ~onComplete : (Js.Nullable.t(Js.t('a)) => _) = ?,
+    ~onComplete : (Js.Nullable.t(Js.t('a)) => unit) = ?,
     unit
   ) => Js.Promise.t(ReferenceRef.t) = "";
 
   [@bs.send] external remove : (ReferenceRef.t,
-    ~onComplete : (Js.Nullable.t(Js.t('a)) => _) = ?,
+    ~onComplete : (Js.Nullable.t(Js.t('a)) => unit) = ?,
     unit
   ) => Js.Promise.t('a) = "";
 
   [@bs.send] external set : (ReferenceRef.t,
     ~value : 'a = ?,
-    ~onComplete : (Js.Nullable.t(Js.t('a)) => _) = ?,
+    ~onComplete : (Js.Nullable.t(Js.t('a)) => unit) = ?,
     unit
   ) => Js.Promise.t('a) = "";
 
-  [@bs.send] external setPriority : (ReferenceRef.t, 'a, Js.Nullable.t(Js.t('a)) => _) => Js.Promise.t('a) = "";
+  [@bs.send] external setPriority : (ReferenceRef.t, 'a, Js.Nullable.t(Js.t('a)) => unit) => Js.Promise.t('a) = "";
 
   [@bs.send] external setWithPriority : (ReferenceRef.t,
     ~value : 'a,
     ~priority : 'b,
-    ~onComplete : (Js.Nullable.t(Js.t('a)) => _) = ?,
+    ~onComplete : (Js.Nullable.t(Js.t('a)) => unit) = ?,
     unit
   ) => Js.Promise.t('a) = "";
 
@@ -230,14 +230,14 @@ module Reference = {
 
   [@bs.send] external transaction : (ReferenceRef.t,
     ~update : 'a => unit,
-    ~onComplete : ((Js.Nullable.t(Js.t('a)), bool, Js.Nullable.t(DataSnapshot.t)) => _) = ?,
+    ~onComplete : ((Js.Nullable.t(Js.t('a)), bool, Js.Nullable.t(DataSnapshot.t)) => unit) = ?,
     ~applyLocally : bool,
     unit
   ) => Js.Promise.t('a) = "";
 
   [@bs.send] external update : (ReferenceRef.t,
     ~value : 'a => unit,
-    ~onComplete : (Js.Nullable.t(Js.t('a)) => _) = ?,
+    ~onComplete : (Js.Nullable.t(Js.t('a)) => unit) = ?,
     unit
   ) => Js.Promise.t('a) = "";
 };
