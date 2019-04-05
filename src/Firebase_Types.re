@@ -1,0 +1,1 @@
+external toThenable : 'a => Js.Promise.t('a) = "%identity";
