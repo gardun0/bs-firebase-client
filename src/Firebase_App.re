@@ -24,7 +24,7 @@ module type Configuration = {
 module Make = (Config: Configuration) => {
   type t;
 
-  [@bs.module "firebase/app"] external make : (~options: Js.t('a), ~name:string=?, unit) => t = "initializeApp";
+  [@bs.module "firebase"] external make : (~options: Js.t('a), ~name:string=?, unit) => t = "initializeApp";
 
   let instance = make(~options=Config.options, ~name=Config.name, ());
 
