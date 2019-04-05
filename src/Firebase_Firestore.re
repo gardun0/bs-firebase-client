@@ -120,7 +120,7 @@ module Document = {
     unit
   ) => cancel = "onSnapshot";
 
-  [@bs.send] external set : (DocumentReference.t, Js.t('a), ~options : setSettings = ?) => Js.Promise.t(_) = "";
+  [@bs.send] external set : (DocumentReference.t, Js.t('a), ~options : setSettings = ?, unit) => Js.Promise.t(_) = "";
 
   [@bs.send] external update : (DocumentReference.t, Js.t('a)) => Js.Promise.t(_) = "";
 
@@ -289,6 +289,13 @@ module Collection = {
 };
 
 module Make = (App: Firebase_App.App) => {
+
+  module WriteBatch = WriteBatch
+  module Collection = Collection
+  module Document = Document
+  module Transaction = Transaction
+  module Query = Query
+
   [@bs.send] external firestore : App.t => Firestore.t = "firestore";
   let instance = firestore(App.instance);
 
@@ -304,7 +311,7 @@ module Make = (App: Firebase_App.App) => {
 
   [@bs.send] external enableNetwork : Firestore.t => Js.Promise.t(_) = "";
 
-  [@bs.send] external enablePersistence : (Firestore.t, ~settings : persistenceSettings = ?) => Js.Promise.t(_) = "";
+  [@bs.send] external enablePersistence : (Firestore.t, ~settings : persistenceSettings = ?, unit) => Js.Promise.t(_) = "";
 
   [@bs.send] external runTransaction : (Firestore.t, Transaction.t => Js.Promise.t('a)) => Js.Promise.t('a) = "";
 

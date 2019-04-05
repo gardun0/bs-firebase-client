@@ -103,7 +103,8 @@ module Query = {
     ],
     ~callback : (DataSnapshot.t, Js.Nullable.t(string)) => unit,
     ~cancelCallbackOrContext : Js.t('a) = ?,
-    ~context : Js.t('a) = ?
+    ~context : Js.t('a) = ?,
+    unit
   ) => (DataSnapshot.t => _) = "";
 
   [@bs.send] external once : (t,
@@ -116,7 +117,8 @@ module Query = {
     ],
     ~successCallback : (DataSnapshot.t, Js.Nullable.t(string)) => unit,
     ~failureCallbackOrContext : Js.t('a) = ?,
-    ~context : Js.t('a) = ?
+    ~context : Js.t('a) = ?,
+    unit
   ) => (DataSnapshot.t => _) = "";
 
   [@bs.send] external orderByChild : (t, string) => t = "";
@@ -170,7 +172,8 @@ module Reference = {
     ],
     ~callback : (DataSnapshot.t, Js.Nullable.t(string)) => unit,
     ~cancelCallbackOrContext : Js.t('a) = ?,
-    ~context : Js.t('a) = ?
+    ~context : Js.t('a) = ?,
+    unit
   ) => (DataSnapshot.t => _) = "";
 
   [@bs.send] external onDisconnect : ReferenceRef.t => OnDisconnect.t = "";
@@ -185,7 +188,8 @@ module Reference = {
     ],
     ~successCallback : (DataSnapshot.t, Js.Nullable.t(string)) => unit,
     ~failureCallbackOrContext : Js.t('a) = ?,
-    ~context : Js.t('a) = ?
+    ~context : Js.t('a) = ?,
+    unit
   ) => (DataSnapshot.t => _) = "";
 
   [@bs.send] external orderByChild : (ReferenceRef.t, string) => Query.t = "";
