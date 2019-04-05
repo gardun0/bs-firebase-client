@@ -90,7 +90,7 @@ module UploadTask = {
     ],
     ~next: UploadTaskSnapshot.t => 'a = ?,
     ~error: Js.t('a) => 'a = ?,
-    ~complete: Js.t('a) => 'a = ?,
+    ~complete: unit => 'a = ?,
     unit
   ) => cancel = "";
 
