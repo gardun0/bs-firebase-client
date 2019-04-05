@@ -26,10 +26,6 @@ module Make = (Config: Configuration) => {
 
   [@bs.module "firebase"] external make : (~options: Js.t('a), ~name:string=?, unit) => t = "initializeApp";
 
-  [%raw "require('firebase/firestore')"];
-  [%raw "require('firebase/database')"];
-  [%raw "require('firebase/storage')"];
-
   let instance = make(~options=Config.options, ~name=Config.name, ());
 
   [@bs.get] external name : t => string = "";
