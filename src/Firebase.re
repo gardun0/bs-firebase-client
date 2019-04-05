@@ -4,3 +4,4 @@
 module App = Firebase_App
 module Database = Firebase_Database
 module Firestore = Firebase_Firestore
+module Storage = Firebase_Storage
