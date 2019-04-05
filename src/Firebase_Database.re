@@ -1,5 +1,3 @@
-[%raw "require('firebase/database')"];
-
 [@bs.module "firebase/database"] external enableLogging : (
   ~logger: 'a = ?,
   ~persistent: bool = ?,

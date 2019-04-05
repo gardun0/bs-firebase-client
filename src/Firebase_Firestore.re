@@ -1,5 +1,3 @@
-[%raw "require('firebase/firestore')"];
-
 [@bs.module "firebase/firestore"] external cacheSizeUnlimited : float = "CACHE_SIZE_UNLIMITED";
 
 [@bs.module "firebase/firestore"] external setLogLevel : ([@bs.string] [

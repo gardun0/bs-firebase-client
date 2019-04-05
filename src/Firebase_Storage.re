@@ -1,5 +1,3 @@
-[%raw "require('firebase/storage')"];
-
 module Storage = {
   type t;
 }
