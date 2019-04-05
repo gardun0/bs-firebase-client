@@ -290,12 +290,6 @@ module Collection = {
 
 module Make = (App: Firebase_App.App) => {
 
-  module WriteBatch = WriteBatch
-  module Collection = Collection
-  module Document = Document
-  module Transaction = Transaction
-  module Query = Query
-
   [@bs.send] external firestore : App.t => Firestore.t = "firestore";
   let instance = firestore(App.instance);
 
